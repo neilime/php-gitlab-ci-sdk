@@ -10,7 +10,6 @@ Introduction
 ------------
 
 Gitlab CI SDK is a PHP Wrapper for use with the [Gitlab CI API](https://github.com/gitlabhq/gitlab-ci/blob/master/doc/api/api.md).
-==============
 
 Based on [php-gitlab-api](https://github.com/m4tthumphrey/php-gitlab-api).
 
