@@ -1,0 +1,29 @@
+{
+    "name": "neilime/php-gitlab-ci-sdk",
+    "type": "library",
+    "description": "GitLab CI SDK",
+    "homepage": "http://neilime.github.io/php-gitlab-ci-sdk",
+    "keywords": ["gitlab", "gitlab ci", "ci", "api", "sdk"],
+    "license": "MIT",
+    "minimum-stability": "stable",
+    "authors": [
+        {
+            "name": "Neilime",
+            "homepage": "https://github.com/neilime",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/neilime/php-gitlab-ci-sdk/issues"
+    },
+    "require": {
+        "php": ">=5.3.2",
+        "ext-curl": "*",
+        "kriswallsmith/buzz": ">=0.7"
+    },
+    "autoload": {
+        "psr-0": {
+            "GitlabCI\\": "src/"
+        }
+    }
+}
