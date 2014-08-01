@@ -57,7 +57,7 @@ class Project extends \GitlabCI\Model\AbstractModel
      */
     public static function fromArray(\GitlabCI\Client $oClient, array $aData)
     {
-        if (empty($aData('id'))) {
+        if (empty($aData['id'])) {
             throw new \GitlabCI\Exception\InvalidArgumentException('Data "id" is empty');
         }
         $oProject = new static($aData['id']);
