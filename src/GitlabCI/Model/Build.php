@@ -42,7 +42,7 @@ class Build extends \GitlabCI\Model\AbstractModel
      */
     public static function fromArray(\GitlabCI\Client $oClient, array $aData)
     {
-        if (empty($aData('id'))) {
+        if (empty($aData['id'])) {
             throw new \GitlabCI\Exception\InvalidArgumentException('Data "id" is empty');
         }
         $oBuild = new static($aData['id']);
