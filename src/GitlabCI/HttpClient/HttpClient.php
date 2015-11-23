@@ -39,12 +39,18 @@ class HttpClient implements \GitlabCI\HttpClient\HttpClientInterface
     protected $lastRequest;
 
     /**
+     * The Buzz instance used to communicate with Gitlab CI
+     * @var \GitlabCI\HttpClient\HttpClient
+     */
+    protected $httpClient;
+
+    /**
      * Constructor
      * @param string $sBaseUrl
      * @param array $aOptions
-     * @param \Buzz\Client\ClientInterface $oClient
+     * @param \Buzz\Client\ClientInterface $oHttpClient
      */
-    public function __construct($sBaseUrl = null, array $aOptions = array(), \Buzz\Client\ClientInterface $oClient = null)
+    public function __construct($sBaseUrl = null, array $aOptions = array(), \Buzz\Client\ClientInterface $oHttpClient = null)
     {
         if ($sBaseUrl) {
             $this->setBaseUrl($sBaseUrl);
@@ -54,8 +60,8 @@ class HttpClient implements \GitlabCI\HttpClient\HttpClientInterface
             $this->setOptions(array_merge($this->getOptions(), $aOptions));
         }
 
-        if ($oClient) {
-            $this->setClient($oClient);
+        if ($oHttpClient) {
+            $this->setHttpClient($oHttpClient);
         }
 
         $this->addListener(new \GitlabCI\HttpClient\Listener\ErrorListener($this->getOptions()))->clearHeaders();
@@ -153,7 +159,7 @@ class HttpClient implements \GitlabCI\HttpClient\HttpClientInterface
             $oResponse = new \GitlabCI\HttpClient\Message\Response();
 
             try {
-                $this->getClient()->send($oRequest, $oResponse);
+                $this->getHttpClient()->send($oRequest, $oResponse);
             } catch (\LogicException $oException) {
                 throw new \GitlabCI\Exception\ErrorException($oException->getMessage());
             } catch (\RuntimeException $oException) {
@@ -366,4 +372,25 @@ class HttpClient implements \GitlabCI\HttpClient\HttpClientInterface
         return $this;
     }
 
+    /**
+     * @return \Buzz\Client\ClientInterface
+     * @throws \GitlabCI\Exception\LogicException
+     */
+    public function getHttpClient()
+    {
+        if ($this->httpClient instanceof \Buzz\Client\ClientInterface) {
+            return $this->httpClient;
+        }
+        throw new \GitlabCI\Exception\LogicException('Http client expects an instance of "\Buzz\Client\ClientInterface", "' . (is_object($this->httpClient) ? get_class($this->httpClient) : gettype($this->httpClient)) . '" defined');
+    }
+
+    /**
+     * @param \Buzz\Client\ClientInterface $oHttpClient
+     * @return \GitlabCI\HttpClient\HttpClient
+     */
+    public function setHttpClient(\Buzz\Client\ClientInterface $oHttpClient)
+    {
+        $this->httpClient = $oHttpClient;
+        return $this;
+    }
 }

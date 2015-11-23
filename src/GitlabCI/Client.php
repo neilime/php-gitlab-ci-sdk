@@ -125,7 +125,7 @@ class Client
         if ($this->httpClient instanceof \GitlabCI\HttpClient\HttpClientInterface) {
             return $this->httpClient;
         }
-        throw new \GitlabCI\Exception\LogicException('Http client expects an of "\GitlabCI\HttpClient\HttpClientInterface", "' . (is_object($this->httpClient) ? get_class($this->httpClient) : gettype($this->httpClient)) . '" defined');
+        throw new \GitlabCI\Exception\LogicException('Http client expects an instance of "\GitlabCI\HttpClient\HttpClientInterface", "' . (is_object($this->httpClient) ? get_class($this->httpClient) : gettype($this->httpClient)) . '" defined');
     }
 
     /**
@@ -207,5 +207,4 @@ class Client
         $this->getHttpClient()->clearHeaders();
         return $this;
     }
-
 }
