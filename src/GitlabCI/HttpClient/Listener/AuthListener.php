@@ -62,11 +62,20 @@ class AuthListener implements \Buzz\Listener\ListenerInterface
                     'private_token' => $this->getToken(),
                     'url' => $this->getGitlabUrl()
                 );
+				 $sUrl = $oRequest->getUrl();
                 $sUrl .= (false === strpos($sUrl, '?') ? '?' : '&') . utf8_encode(http_build_query($aQuery, '', '&'));
                 $oRequest->fromUrl(new \Buzz\Util\Url($sUrl));
                 break;
         }
     }
+	
+	/**
+     * @param \Buzz\Message\RequestInterface $oRequest
+     * @param \Buzz\Message\MessageInterface $oResponse
+     */
+    public function postSend(\Buzz\Message\RequestInterface $oRequest, \Buzz\Message\MessageInterface $oResponse)
+    {
+	}
 
     /**
      * @return string

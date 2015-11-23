@@ -53,7 +53,7 @@ class Client
         $oHttpClient->setTimeout($this->getOptions('timeout'));
         $oHttpClient->setVerifyPeer(false);
 
-        $this->setHttpClient(new \GitlabCI\HttpClient\HttpClient($this->base_url, $this->options, $oHttpClient));
+        $this->setHttpClient(new \GitlabCI\HttpClient\HttpClient($this->getBaseUrl(), $this->options, $oHttpClient));
     }
 
     /**

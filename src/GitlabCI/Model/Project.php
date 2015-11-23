@@ -10,28 +10,17 @@ class Project extends \GitlabCI\Model\AbstractModel
      */
     protected static $properties = array(
         'id',
-        'code',
-        'name',
-        'name_with_namespace',
-        'namespace',
-        'description',
-        'path',
-        'path_with_namespace',
-        'ssh_url_to_repo',
-        'http_url_to_repo',
-        'web_url',
-        'default_branch',
-        'owner',
-        'private',
-        'public',
-        'issues_enabled',
-        'merge_requests_enabled',
-        'wall_enabled',
-        'wiki_enabled',
-        'created_at',
-        'greatest_access_level',
-        'last_activity_at',
-        'snippets_enabled'
+		'name',
+		'timeout',
+		'scripts',
+		'token',
+		'default_ref',
+		'gitlab_url',
+		'always_build',
+		'polling_interval',
+		'public',
+		'ssh_url_to_repo',
+		'gitlab_id',
     );
 
     /**
@@ -113,10 +102,10 @@ class Project extends \GitlabCI\Model\AbstractModel
      */
     public function getProjectId()
     {
-        if (is_scalar($this->projectId)) {
-            return $this->projectId;
+        if (is_scalar($this->data['id'])) {
+            return $this->data['id'];
         }
-        throw new \GitlabCI\Exception\LogicException('ProjectId expects a scalar value, "' . gettype($this->projectId) . '" defined');
+        throw new \GitlabCI\Exception\LogicException('Project id expects a scalar value, "' . gettype($this->data['id']) . '" defined');
     }
 
     /**
@@ -126,10 +115,10 @@ class Project extends \GitlabCI\Model\AbstractModel
     public function setProjectId($sProjectId)
     {
         if (is_scalar($sProjectId)) {
-            $this->projectId = $sProjectId;
+            $this->data['id'] = $sProjectId;
             return $this;
         }
-        throw new \GitlabCI\Exception\LogicException('ProjectId expects a scalar value, "' . gettype($sProjectId) . '" goven');
+        throw new \GitlabCI\Exception\LogicException('ProjectId expects a scalar value, "' . gettype($sProjectId) . '" gven');
     }
 
 }

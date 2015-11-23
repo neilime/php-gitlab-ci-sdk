@@ -20,6 +20,13 @@ class ErrorListener implements \Buzz\Listener\ListenerInterface
             $this->setOptions($aOptions);
         }
     }
+	
+    /**
+     * @param \Buzz\Message\RequestInterface $oRequest
+     */
+    public function preSend(\Buzz\Message\RequestInterface $oRequest)
+    {
+	}
 
     /**
      * @param \Buzz\Message\RequestInterface $oRequest
@@ -38,13 +45,24 @@ class ErrorListener implements \Buzz\Listener\ListenerInterface
             }
 
             $sErrorMessage = null;
-            if (isset($aContent['error'])) {
-                $sErrorMessage = implode("\n", $aContent['error']);
-            } elseif (isset($aContent['message'])) {
-                $sErrorMessage = $aContent['message'];
-            } else {
-                $sErrorMessage = $aContent;
-            }
+			if(is_array($aContent)){
+				if (isset($aContent['error'])) {
+					if(is_array($aContent['error'])){
+						$sErrorMessage = implode(PHP_EOL, $aContent['error']);
+					}
+					else{
+						$sErrorMessage = $aContent['error'];
+					}
+				} elseif (isset($aContent['message'])) {
+					$sErrorMessage = $aContent['message'];
+				} else {
+					$sErrorMessage = $aContent;
+				}
+			}
+			else{
+			$sErrorMessage = 'Unkown error';
+			}
+			
 
             throw new \GitlabCI\Exception\RuntimeException($sErrorMessage, $oResponse->getStatusCode());
         }
